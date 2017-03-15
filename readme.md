@@ -12,7 +12,6 @@ A simple turn-based strategy game with the following (planned :)) features:
 
 
 Super early screenshot of map editor:
-[[https://github.com/mateun/emperor_game/blob/master/screenshots/map_editor_wip1.PNG]]
 
 ![map editor wip](/screenshots/map_editor_wip1.PNG?raw=true "Map editor WIP")
 
