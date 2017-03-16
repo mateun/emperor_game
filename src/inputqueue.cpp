@@ -24,3 +24,15 @@ void InputQueue::updateSubscribers() {
 		}
 	}
 }
+
+void InputQueue::clearEvents() {
+	_events.clear();
+}
+
+void InputQueue::clearSubscribers() {
+	_subscribers.clear();
+}
+
+int InputQueue::getNumberOfEventsInQueue() {
+	return _events.size();
+}

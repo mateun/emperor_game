@@ -11,8 +11,23 @@ void MockInputQueue::gatherInputs() {
 }
 
 bool InputQueueTest::runTests() {
-	return testSubscription();
+	return testSubscription() &&
+			testClear();
 }
+
+class SimpleSubber {
+
+
+
+public:
+	SimpleSubber(bool& result) : _testResult(result){}
+	void onEvent(InputEvent e) {
+		_testResult = true;
+	}
+
+private:
+	bool& _testResult;
+};
 
 bool InputQueueTest::testSubscription() {
 	std::unique_ptr<InputQueue> queue = std::make_unique<MockInputQueue>();
@@ -25,5 +40,25 @@ bool InputQueueTest::testSubscription() {
 	queue->gatherInputs();
 	queue->updateSubscribers();
 
+	testResult = false;
+
+	SimpleSubber simpleSubber(testResult);
+	std::function<void(InputEvent)> fn = std::bind(&SimpleSubber::onEvent, &simpleSubber, std::placeholders::_1);
+	queue->clearSubscribers();
+	queue->subscribe(fn);
+	queue->updateSubscribers();
+
 	return testResult;
+}
+
+bool InputQueueTest::testClear() {
+	std::unique_ptr<InputQueue> queue = std::make_unique<MockInputQueue>();
+	queue->gatherInputs();
+
+	if (queue->getNumberOfEventsInQueue() < 1)
+		return false;
+
+	queue->clearEvents();
+
+	return queue->getNumberOfEventsInQueue() == 0;		
 }

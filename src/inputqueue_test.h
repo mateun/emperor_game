@@ -14,6 +14,7 @@ public:
 
 private:
 	bool testSubscription();
+	bool testClear();
 	
 };
 

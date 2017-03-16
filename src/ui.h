@@ -3,6 +3,16 @@
 #include <string>
 #include <vector>
 
+/**
+	Hierarchical model of UIWidgets
+ */
+class UIScene {
+
+public:
+	virtual void render(SDL_Renderer* renderer);
+	
+};
+
 struct MouseWatchComp {
 	int x, y, w, h;
 	std::string name;

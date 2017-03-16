@@ -26,6 +26,9 @@ public:
 	virtual void subscribe(std::function<void (InputEvent)>);
 	virtual void updateSubscribers();
 	virtual void gatherInputs();
+	virtual void clearEvents();
+	virtual void clearSubscribers();
+	virtual int getNumberOfEventsInQueue();
 
 protected:
 	std::vector<InputEvent> _events;
