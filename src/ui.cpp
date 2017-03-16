@@ -11,6 +11,10 @@ void registerMouseWatchComponent(int x, int y, int w, int h, const std::string& 
 	mouseWatchComponents[name] = mouseWatchComp;
 }
 
+void unregisterMouseWatchComponent(const std::string& name) {
+	mouseWatchComponents.erase(name);
+}
+
 MouseWatchComp getMouseWatchCompByName(const std::string& name) {
 	MouseWatchComp c = mouseWatchComponents[name];
 	//SDL_Log("in getMouseWatchComp: c.x %d", c.x);

@@ -9,6 +9,7 @@ struct MouseWatchComp {
 };
 
 void registerMouseWatchComponent(int x, int y, int w, int h, const std::string& name);
+void unregisterMouseWatchComponent(const std::string& name);
 MouseWatchComp getMouseWatchCompByName(const std::string& name);
 
 // Returns a vector of components which had a ui event detected

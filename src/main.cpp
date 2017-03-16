@@ -20,18 +20,17 @@ int main(int argc, char** args) {
 
 	TTF_Font* font = createFont("arial.ttf");
 	SDL_Texture* playerImg = createImage("player.bmp", renderer);
-	SDL_Texture* topMenuPart = createImage("topmenu_part.bmp", renderer);
-	registerMouseWatchComponent(10, 5, 30, 20, "fileMenu");
-	registerMouseWatchComponent(100, 5, 30, 20, "aboutMenu");
-
+	
 	bool buttonPressedThisFrame = false;
 	while (1) {
 		clearBackBuffer();
 
 		drawImage(100, 400, playerImg, renderer);
-		drawImage(0, 0, 800, 32, topMenuPart, renderer);
+		
+		initTopMenu();
 
 		// Check if the left mouse button was pressed
+		// TODO refactor to remove this not nice loop here ...
 		SDL_Event event;
 		while (SDL_PollEvent(&event) != 0) {
 			if (event.type == SDL_MOUSEBUTTONUP) {
@@ -42,11 +41,8 @@ int main(int argc, char** args) {
 			}
 		}
 		
-		handleTopMenu(renderer, buttonPressedThisFrame);
+		handleTopMenuFrame(renderer, buttonPressedThisFrame);
 		
-
-		drawText(10, 5, renderer, font, "File");
-		drawText(100, 5, renderer, font, "About");
 		displayBackBuffer();
 	}
 
