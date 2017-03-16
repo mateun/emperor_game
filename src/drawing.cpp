@@ -43,7 +43,7 @@ void initTextDrawing() {
 }
 
 TTF_Font* createFont(const char* fontName) {
-	TTF_Font* f = TTF_OpenFont(fontName, 16);
+	TTF_Font* f = TTF_OpenFont(fontName, 12);
 	if (!f) {
 		SDL_Log("Error: could not load font %s %s", fontName, TTF_GetError());
 		return NULL;

@@ -1,3 +1,4 @@
+#pragma once
 #include <sdl2/sdl.h>
 #include <string>
 #include <vector>
