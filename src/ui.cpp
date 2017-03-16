@@ -39,8 +39,7 @@ std::vector<std::string> pollUIEvents() {
 
 	SDL_PumpEvents();
 	SDL_GetMouseState(&x, &y);
-	//SDL_Log("x/y: %d %d", x, y);
-
+	
 	for (auto const& comp : mouseWatchComponents) {
 		if (comp.second.x <= x && (x <= comp.second.x + comp.second.w) &&
 			comp.second.y <= y && (y <= comp.second.y + comp.second.h)) {
