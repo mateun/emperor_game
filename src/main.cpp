@@ -21,21 +21,42 @@ int main(int argc, char** args) {
 	while (1) {
 		clearBackBuffer();
 
-		std::vector<std::string> componentsWithEvents = pollUIEvents();
-		for (std::string compName : componentsWithEvents) {
-			if ("fileMenu" == compName) {
-				printf("comp with Event: %s\n", compName.c_str());
-			}
-		}
 		
 		//pollWindowEvent();
 
 		
 		
 		drawImage(100, 400, playerImg, renderer);
+		
+
 		//drawTopMenu(renderer, topMenuPart);
 		drawImage(0, 0, 800, 32, topMenuPart, renderer);
+		
+
+		std::vector<std::string> componentsWithEvents = pollUIEvents();
+		for (std::string compName : componentsWithEvents) {
+			if ("fileMenu" == compName) {
+				printf("comp with Event: %s\n", compName.c_str());
+
+				// test
+				SDL_Surface* s = SDL_CreateRGBSurface(0, 30, 20, 32, 0, 0, 0, 0);
+				SDL_FillRect(s, NULL, SDL_MapRGB(s->format, 80, 80, 80));
+				SDL_Texture* t = SDL_CreateTextureFromSurface(renderer, s);
+				SDL_FreeSurface(s);
+				SDL_Rect tr;
+				tr.x = 5;
+				tr.y = 5;
+				tr.w = 40;
+				tr.h = 25;
+				SDL_RenderCopy(renderer, t, NULL, &tr);
+				SDL_DestroyTexture(t);
+				// end test
+
+			}
+		}
+
 		drawText(10, 5, renderer, font, "File");
+
 
 		displayBackBuffer();
 	}
