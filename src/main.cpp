@@ -16,23 +16,26 @@ int main(int argc, char** args) {
 	TTF_Font* font = createFont("Antonio-Regular.ttf");
 	SDL_Texture* playerImg = createImage("player.bmp", renderer);
 	SDL_Texture* topMenuPart = createImage("topmenu_part.bmp", renderer);
-	registerMouseWatchComponent(10, 10, 50, 50, "fileMenu");
+	registerMouseWatchComponent(10, 5, 30, 20, "fileMenu");
 
 	while (1) {
-		std::vector<const char*> componentsWithEvents = pollUIEvents();
-		for (const char* compName : componentsWithEvents) {
-			if (strcmp("fileMenu", compName) == 0) {
-				
+		clearBackBuffer();
+
+		std::vector<std::string> componentsWithEvents = pollUIEvents();
+		for (std::string compName : componentsWithEvents) {
+			if ("fileMenu" == compName) {
+				printf("comp with Event: %s\n", compName.c_str());
 			}
 		}
+		
 		//pollWindowEvent();
 
-		clearBackBuffer();
-		// draw some sprites
+		
+		
 		drawImage(100, 400, playerImg, renderer);
 		//drawTopMenu(renderer, topMenuPart);
 		drawImage(0, 0, 800, 32, topMenuPart, renderer);
-		drawText(10, 10, renderer, font, "File");
+		drawText(10, 5, renderer, font, "File");
 
 		displayBackBuffer();
 	}

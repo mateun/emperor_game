@@ -14,7 +14,8 @@ void registerMouseWatchComponent(int x, int y, int w, int h, const char* name) {
 	mouseWatchComponents[name] = mouseWatchComp;
 }
 
-std::vector<const char*> pollUIEvents() {
+std::vector<std::string> pollUIEvents() {
+	std::vector<std::string> detectedComponents;
 	SDL_Event event;
 	while (SDL_PollEvent(&event) != 0) {
 		if (event.type == SDL_MOUSEMOTION) {
@@ -26,7 +27,7 @@ std::vector<const char*> pollUIEvents() {
 
 			SDL_Log("x/y: %d %d", x, y);
 
-			std::vector<const char*> detectedComponents;
+			
 
 			for (auto const& comp : mouseWatchComponents) {
 				if (comp.second.x <= x && (x <= comp.second.x + comp.second.w) &&
@@ -36,8 +37,10 @@ std::vector<const char*> pollUIEvents() {
 				}
 			}
 
-			return detectedComponents;
+			
 		}
 	}
+
+	return detectedComponents;
 	
 }
