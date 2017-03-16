@@ -1,4 +1,5 @@
 #pragma once
+#include "inputqueue.h"
 #include <sdl2/sdl.h>
 #include <string>
 #include <vector>
@@ -9,8 +10,10 @@
 class UIScene {
 
 public:
+	UIScene(InputQueue& inputQueue);
+	virtual ~UIScene();
 	virtual void render(SDL_Renderer* renderer);
-	
+	void onInputEvent(InputEvent event);
 };
 
 struct MouseWatchComp {

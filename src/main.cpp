@@ -26,8 +26,11 @@ int main(int argc, char** args) {
 	
 	
 	SDL_Renderer* renderer = showWindow(100, 100, 800, 600, false);
-	initTextDrawing();
 
+	InputQueue inputQueue;
+	UIScene uiScene(inputQueue);
+	
+	initTextDrawing();
 	TTF_Font* font = createFont("arial.ttf");
 	SDL_Texture* playerImg = createImage("player.bmp", renderer);
 	
@@ -35,24 +38,16 @@ int main(int argc, char** args) {
 	while (1) {
 		clearBackBuffer();
 
+		inputQueue.gatherInputs();
+		inputQueue.updateSubscribers();
+
+		uiScene.render(renderer);
+
+		// dummy image for testing purpose
 		drawImage(100, 400, playerImg, renderer);
 		
-		initTopMenu();
-
-		// Check if the left mouse button was pressed
-		// TODO refactor to remove this not nice loop here ...
-		SDL_Event event;
-		while (SDL_PollEvent(&event) != 0) {
-			if (event.type == SDL_MOUSEBUTTONUP) {
-				buttonPressedThisFrame = true;
-			}
-			else {
-				buttonPressedThisFrame = false;
-			}
-		}
 		
-		handleTopMenuFrame(renderer, buttonPressedThisFrame);
-		
+		inputQueue.clearEvents();
 		displayBackBuffer();
 	}
 

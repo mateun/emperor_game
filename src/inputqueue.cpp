@@ -1,5 +1,6 @@
 #pragma once
 #include "inputqueue.h"
+#include <SDL2\SDL.h>
 
 InputQueue::InputQueue() {
 
@@ -14,7 +15,16 @@ void InputQueue::subscribe(std::function<void(InputEvent)> callback) {
 }
 
 void InputQueue::gatherInputs() {
-
+	SDL_Event event;
+	while (SDL_PollEvent(&event) != 0) {
+		if (event.type == SDL_MOUSEBUTTONUP) {
+			InputEvent e;
+			e.type = MOUSE_UP;
+			e.x = event.motion.x;
+			e.y = event.motion.y;
+			_events.push_back(e);
+		}
+	}
 }
 
 void InputQueue::updateSubscribers() {
