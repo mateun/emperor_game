@@ -4,6 +4,7 @@
 #include "drawing.h"
 #include "ui.h"
 #include "topmenu.h"
+#include "inputqueue_test.h"
 #include <vector>
 #include <string.h>
 
@@ -12,6 +13,15 @@
 
 
 int main(int argc, char** args) {
+
+	InputQueueTest iqTest;
+	if (iqTest.runTests() == false) {
+		SDL_Log("Tests failed, not starting up!");
+		exit(1);
+	}
+	else {
+		SDL_Log("Basic startup tests ok, starting map editor");
+	}
 
 	
 	
