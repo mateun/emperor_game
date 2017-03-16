@@ -2,16 +2,19 @@
 #include <map>
 #include "drawing.h"
 
-struct MouseWatchComp {
-	int x, y, w, h;
-	const char* name;
-};
 
-static std::map<const char*, MouseWatchComp> mouseWatchComponents;
 
-void registerMouseWatchComponent(int x, int y, int w, int h, const char* name) {
+static std::map<std::string, MouseWatchComp> mouseWatchComponents;
+
+void registerMouseWatchComponent(int x, int y, int w, int h, const std::string& name) {
 	MouseWatchComp mouseWatchComp = { x, y, w, h, name };
 	mouseWatchComponents[name] = mouseWatchComp;
+}
+
+MouseWatchComp getMouseWatchCompByName(const std::string& name) {
+	MouseWatchComp c = mouseWatchComponents[name];
+	//SDL_Log("in getMouseWatchComp: c.x %d", c.x);
+	return c;
 }
 
 std::vector<std::string> pollUIEvents() {
@@ -41,7 +44,7 @@ std::vector<std::string> pollUIEvents() {
 	for (auto const& comp : mouseWatchComponents) {
 		if (comp.second.x <= x && (x <= comp.second.x + comp.second.w) &&
 			comp.second.y <= y && (y <= comp.second.y + comp.second.h)) {
-			SDL_Log("hovering over component: %s", comp.second.name);
+			SDL_Log("hovering over component: %s", comp.second.name.c_str());
 			detectedComponents.push_back(comp.second.name);
 		}
 	}
